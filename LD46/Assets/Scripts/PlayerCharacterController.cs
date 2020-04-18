@@ -5,25 +5,25 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacterController : MonoBehaviour
 {
-    GameObject wooden_Log;
+    GameObject wooden_log;
     Rigidbody rb;
 
     public float speed = 5f;
-    public float wood_Duration = 2f;
+    public float wood_duration = 2f;
 
     Interactable interactable;
 
     Vector2 dir;
     bool interact = false;
-    bool holding_Wood = false;
+    bool holding_wood = false;
 
-    private float wood_Time_Start = -1f;
+    private float wood_time_start = -1f;
 
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        wooden_Log = transform.Find("Wooden_Log").gameObject;
+        wooden_log = transform.Find("Wooden_Log").gameObject;
     }
 
     void Update()
@@ -50,20 +50,23 @@ public class PlayerCharacterController : MonoBehaviour
 
     void Interact() {
         if (interact && interactable != null) {
-            if (!holding_Wood) {
+            if (!holding_wood) {
                 if (interactable is WoodSite) {
-                    Debug.Log("interacting since " + (Time.time - wood_Time_Start).ToString());
-                    if (wood_Time_Start < 0) {
-                        wood_Time_Start = Time.time;
+                    Debug.Log("Hacking Wood " + (Time.time - wood_time_start).ToString());
+                    if (wood_time_start < 0) {
+                        wood_time_start = Time.time;
                     }
-                    if (Time.time - wood_Time_Start >= wood_Duration) {
+                    if (Time.time - wood_time_start >= wood_duration) {
                         GetWood();
-                        wood_Time_Start = -1f;
+                        wood_time_start = -1f;
                     }
                 }
             }
             else {
-
+                if (interactable is Fire) {
+                    Debug.Log("Interacting with fire");
+                    LoseWood();
+                }
             }
             
             // if interactable is Machine
@@ -72,13 +75,13 @@ public class PlayerCharacterController : MonoBehaviour
     }
 
     void GetWood() {
-        holding_Wood = true;
-        wooden_Log.SetActive(true);
+        holding_wood = true;
+        wooden_log.SetActive(true);
     }
 
     void LoseWood() {
-        holding_Wood = false;
-        wooden_Log.SetActive(false);
+        holding_wood = false;
+        wooden_log.SetActive(false);
     }
 
     public void OnMove(InputAction.CallbackContext ctx){

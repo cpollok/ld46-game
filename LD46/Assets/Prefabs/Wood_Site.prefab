@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3800646465879143262}
   - component: {fileID: 8743837040523675338}
   - component: {fileID: 7417826444577242458}
+  - component: {fileID: 2592679882981215314}
   m_Layer: 0
   m_Name: Woods
   m_TagString: Untagged
@@ -94,6 +95,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &2592679882981215314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593500040718741149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e347e844b853c134a92204eb68fdd1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2521016359328680072
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +116,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 605217568733839606}
-  - component: {fileID: 6165987741794522972}
   m_Layer: 0
   m_Name: Wood_Site
   m_TagString: Untagged
@@ -126,15 +138,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6165987741794522972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521016359328680072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e347e844b853c134a92204eb68fdd1d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
