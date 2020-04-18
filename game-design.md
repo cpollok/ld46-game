@@ -11,7 +11,7 @@ Cart
 - Feuer
     - aktuelle & maximale Brennstärke
     - bleed
-    
+
 Schienen
 - Spline
 
@@ -33,8 +33,7 @@ GameManager
 
 Welt:
 Maßstab - Cart 1x1 Unity-Units, Schiene ca 1 Unit breit
-    
-    
+
 Treibstoff/-veredelung
 Umgebungsobjekte zum Schieben?
 
