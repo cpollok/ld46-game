@@ -58,7 +58,7 @@ public class PlayerCharacterController : FireInteractor<Fire>
     
     void Interact() {
         // Check if too far from fire
-        if (interact && interactable) {
+        if (InFireRange() && interact && interactable) {
             if (!holding_wood) {
                 if (interactable is WoodSite) {
                     Debug.Log("Hacking Wood " + (Time.time - wood_time_start).ToString());
@@ -82,6 +82,11 @@ public class PlayerCharacterController : FireInteractor<Fire>
             // if interactable is Machine
             // if interactable is Cart/Fire
         }
+    }
+
+    bool InFireRange() {
+        float distance_to_fire = (transform.position - fire.transform.position).magnitude;
+        return distance_to_fire <= fire.CurrentRange;
     }
 
     void GetWood() {
