@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7975979771830431524}
   - component: {fileID: 7975979771830431527}
   - component: {fileID: 7975979771830431526}
-  - component: {fileID: 155343420251699453}
+  - component: {fileID: 3088310336404909467}
   m_Layer: 0
   m_Name: CartBody
   m_TagString: Untagged
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &155343420251699453
+--- !u!114 &3088310336404909467
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7975979771830431520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7524595ca00304942b2dc98ca5a24026, type: 3}
+  m_Script: {fileID: 11500000, guid: 18cc3a1b236f5744bbf2d306b60e1e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7975979772055693216
@@ -255,6 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7975979772746270315}
+  - component: {fileID: 3920369971298151250}
   m_Layer: 0
   m_Name: P_Cart
   m_TagString: Untagged
@@ -281,6 +282,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3920369971298151250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7975979772746270314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7524595ca00304942b2dc98ca5a24026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: 1
+  rail: {fileID: 0}
 --- !u!1 &7975979772887098319
 GameObject:
   m_ObjectHideFlags: 0

@@ -63,7 +63,7 @@ public class PlayerCharacterController : FireInteractor<Fire>
                 }
             }
             else {
-                if (interactable is Cart) {
+                if (interactable is CartInteractable) {
                     Debug.Log("Interacting with fire cart");
                     LoseWood();
                     fire.Stoke();
