@@ -19,7 +19,9 @@ public class PlayerCharacterController : FireInteractor<Fire>
 
     private float wood_time_start = -1f;
 
-    
+    private bool dead = false;
+    public bool Dead { get => dead; set => dead = value; }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,10 +30,16 @@ public class PlayerCharacterController : FireInteractor<Fire>
 
     void Update()
     {
+        if (dead) {
+            return;
+        }
         Interact();
     }
 
     void FixedUpdate() {
+        if (dead) {
+            return;
+        }
         if (!interact) {
             Move();
             if (dir != Vector2.zero) {
@@ -47,9 +55,10 @@ public class PlayerCharacterController : FireInteractor<Fire>
     void Turn(){
         transform.LookAt(transform.position + new Vector3(dir.x, 0, dir.y));
     }
-
+    
     void Interact() {
-        if (interact && interactable != null) {
+        // Check if too far from fire
+        if (interact && interactable) {
             if (!holding_wood) {
                 if (interactable is WoodSite) {
                     Debug.Log("Hacking Wood " + (Time.time - wood_time_start).ToString());
@@ -91,6 +100,10 @@ public class PlayerCharacterController : FireInteractor<Fire>
 
     public void OnFire(InputAction.CallbackContext ctx) {
         interact = ctx.ReadValue<float>() > 0 ? true : false;
+    }
+
+    public void Die() {
+        dead = true;
     }
 
     private void OnTriggerEnter(Collider other) {
