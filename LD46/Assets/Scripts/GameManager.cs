@@ -64,7 +64,7 @@ public class GameManager : FireInteractor<Fire>
     }
 
     bool CartReachedEnd() {
-        return cart_progress >= path.length;
+        return cart_progress >= path.length*0.99;
     }
 
     void OnFireWentOut() {
