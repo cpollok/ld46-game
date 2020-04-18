@@ -11,7 +11,7 @@ public class Rail : MonoBehaviour {
     public MeshRenderer mesh_renderer;
     public Mesh mesh;
 
-    public float rail_dist  = 1.0f;
+    public float rail_dist  = 0.8f;
     public float rail_width = 0.05f;
     public float rail_height = 0.1f;
     public float tie_width  = 1.0f;
@@ -36,7 +36,7 @@ public class Rail : MonoBehaviour {
         }
 
         mesh_filter.sharedMesh = mesh;
-        // GenerateMesh();
+        GenerateMesh();
     }
 
     // Update is called once per frame
@@ -51,18 +51,19 @@ public class Rail : MonoBehaviour {
         Vector2[] uvs      = new Vector2[verts.Length];
         Vector3[] normals  = new Vector3[verts.Length];
 
-        int[] rail_tris = new int[(path_creator.path.NumPoints - 1) * 12];
-        int[] tie_tris  = new int[num_tie * 10];
+        int[] rail_tris = new int[(path_creator.path.NumPoints - 1) * 12 * 3];
+        int[] tie_tris  = new int[num_tie * 10 * 3];
 
         float side_uv = rail_height / (2 * rail_height + rail_width);
         float top_uv  = (rail_height + rail_width) / (2 * rail_height + rail_width);
 
         //     0 1     2 3
         //    /\/     /\/
-        //  -8 -7    6 7
+        //  -8 -7   -6 -5
 
-        int[] top_surf   = { 0, -8, -7, -7,  1,  0 };
-        int[] side_surfs = { 0,  4, -8,  4, -4, -8,  1, -7, -3, -3,  5,  1};
+        int[] top_surf   = {-8,  0, -7,  1, -7,  0, -6, -5,  2,  3,  2, -5};
+        int[] side_surfs = { 4,  0, -8, -4,  4, -8, -7,  1, -3,  5, -3,  1,
+                             2,  6, -6,  6, -2, -6,  7,  3, -1, -5, -1,  3};
 
         for (int i = 0; i < path_creator.path.NumPoints; i++) {
             Vector3 up = Vector3.up;
@@ -75,17 +76,17 @@ public class Rail : MonoBehaviour {
 
             int vi = i * 8;
 
-            verts[vi + 0] = pos - 0.5f * rail_width * right + up * (rail_height + tie_height);
-            verts[vi + 1] = pos - (0.5f * rail_width - rail_width) * right + up * (rail_height + tie_height);
+            verts[vi + 0] = pos - 0.5f * rail_dist * right + up * (rail_height + tie_height);
+            verts[vi + 1] = pos - (0.5f * rail_dist - rail_width) * right + up * (rail_height + tie_height);
 
-            verts[vi + 2] = pos + 0.5f * rail_width * right + up * (rail_height + tie_height);
-            verts[vi + 3] = pos + (0.5f * rail_width - rail_width) * right + up * (rail_height + tie_height);
+            verts[vi + 2] = pos + 0.5f * rail_dist * right + up * (rail_height + tie_height);
+            verts[vi + 3] = pos + (0.5f * rail_dist - rail_width) * right + up * (rail_height + tie_height);
 
-            verts[vi + 4] = pos - 0.5f * rail_width * right + up * (tie_height);
-            verts[vi + 5] = pos - (0.5f * rail_width - rail_width) * right + up * (tie_height);
+            verts[vi + 4] = pos - 0.5f * rail_dist * right + up * (tie_height);
+            verts[vi + 5] = pos - (0.5f * rail_dist - rail_width) * right + up * (tie_height);
 
-            verts[vi + 6] = pos + 0.5f * rail_width * right + up * (tie_height);
-            verts[vi + 7] = pos + (0.5f * rail_width - rail_width) * right + up * (tie_height);
+            verts[vi + 6] = pos + 0.5f * rail_dist * right + up * (tie_height);
+            verts[vi + 7] = pos + (0.5f * rail_dist - rail_width) * right + up * (tie_height);
 
             uvs[vi + 0] = new Vector2(side_uv, path_creator.path.times[i]);
             uvs[vi + 1] = new Vector2(top_uv,  path_creator.path.times[i]);
@@ -106,15 +107,11 @@ public class Rail : MonoBehaviour {
             normals[vi + 7] =  right;
 
             if (i > 0) {
-                int tris_idx = (i - 1) * 12;
+                int tris_idx = (i - 1) * 12 * 3;
                 for (int k = 0; k < side_surfs.Length; k++)
                     rail_tris[tris_idx + 0 + k] = vi + 0 + side_surfs[k];
-                for (int k = 0; k < side_surfs.Length; k++)
-                    rail_tris[tris_idx + 4 + k] = vi + 2 + side_surfs[k];
                 for (int k = 0; k < top_surf.Length; k++)
-                    rail_tris[tris_idx + 8 + k] = vi + 0 + top_surf[k];
-                for (int k = 0; k < top_surf.Length; k++)
-                    rail_tris[tris_idx + 10 + k] = vi + 2 + top_surf[k];
+                    rail_tris[tris_idx + side_surfs.Length + k] = vi + 0 + top_surf[k];
             }
         }
 
@@ -129,11 +126,11 @@ public class Rail : MonoBehaviour {
         float uv_vert_1 = tie_height / (2 * tie_height + tie_depth);
         float uv_vert_2 = (tie_height + tie_depth) / (2 * tie_height + tie_depth);
 
-        int[] tie_tris_indices = {0, 1, 5, 4, 0, 5,
-                                  0, 2, 1, 1, 2, 3,
-                                  2, 6, 3, 3, 6, 7,
-                                  0, 4, 2, 4, 6, 2,
-                                  1, 3, 5, 3, 7, 5};
+        int[] tie_tris_indices = {1, 0, 5, 0, 4, 5,
+                                  2, 0, 1, 2, 1, 3,
+                                  6, 2, 3, 6, 3, 7,
+                                  4, 0, 2, 6, 4, 2,
+                                  3, 1, 5, 7, 3, 5};
 
         for (int i = 0; i < num_tie; i++) {
             float t = i / (float)num_tie; 
@@ -170,7 +167,7 @@ public class Rail : MonoBehaviour {
             uvs[vi + 6] = new Vector2(0, 1);
             uvs[vi + 7] = new Vector2(1, 1);
 
-            int ti = i * 10;
+            int ti = i * 10 * 3;
             for (int k = 0; k < tie_tris_indices.Length; k++)
                 tie_tris[ti + k] = vi +  tie_tris_indices[k];
         }
