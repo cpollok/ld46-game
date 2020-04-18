@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cart : MonoBehaviour {
+public class Cart : Interactable {
     float position = 0.0f;
     public float velocity = 1.0f;
 

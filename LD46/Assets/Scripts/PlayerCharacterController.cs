@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCharacterController : MonoBehaviour
+public class PlayerCharacterController : FireInteractor<Fire>
 {
     GameObject wooden_log;
     Rigidbody rb;
@@ -23,7 +23,7 @@ public class PlayerCharacterController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        wooden_log = transform.Find("Wooden_Log").gameObject;
+        wooden_log = transform.Find("Body").Find("Wooden_Log").gameObject;
     }
 
     void Update()
@@ -63,9 +63,10 @@ public class PlayerCharacterController : MonoBehaviour
                 }
             }
             else {
-                if (interactable is Fire) {
-                    Debug.Log("Interacting with fire");
+                if (interactable is Cart) {
+                    Debug.Log("Interacting with fire cart");
                     LoseWood();
+                    fire.Stoke();
                 }
             }
             

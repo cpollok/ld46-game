@@ -8,6 +8,7 @@ public class Fire : MonoBehaviour {
     public float power = 1.0f;
     public float max_power = 1.0f;
     public float damage_per_s = 0.1f;
+    public float stoke_amount = 0.2f;
     
     public Light lamp;
     public float max_light_range = 10.0f;
@@ -34,5 +35,13 @@ public class Fire : MonoBehaviour {
 
         lamp.range = power / max_power * max_light_range;
         lamp.intensity = lamp_normal_intesity + 0.02f * randStdNormal;
+    }
+
+    // Stoke with Wood
+    public void Stoke() {
+        power += stoke_amount;
+        if (power > max_power) {
+            power = max_power;
+        }
     }
 }
