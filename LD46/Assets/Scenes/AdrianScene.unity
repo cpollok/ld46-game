@@ -263,6 +263,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path_creator: {fileID: 354524828}
+  mesh_filter: {fileID: 0}
+  mesh_renderer: {fileID: 0}
+  mesh: {fileID: 0}
+  rail_dist: 1
+  rail_width: 0.05
+  rail_height: 0.1
+  tie_width: 1
+  tie_depth: 0.1
+  tie_dist: 0.2
+  tie_height: 0.03
 --- !u!114 &354524828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,33 +288,33 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: -0.004469919, y: -0.0029296875, z: 2.9983845}
+      - {x: -0.004469919, y: 0, z: 2.9983845}
       - {x: 0, y: 0, z: 2}
-      - {x: 0.0034985917, y: -0.74466264, z: -1.2506623}
+      - {x: 0.0034985917, y: 0, z: -1.2506623}
       - {x: 0, y: 0, z: -2}
-      - {x: -0.0046741366, y: 0.99487305, z: -3.001119}
-      - {x: 0.0062590837, y: 0.63964844, z: -3.0013094}
-      - {x: -0.9924923, y: -0.0009765625, z: -2.9999998}
-      - {x: -1.8485677, y: -0.5500854, z: -2.9988773}
-      - {x: -2.408892, y: -0.35899067, z: -2.997102}
-      - {x: -2.9984052, y: -0.2127347, z: -2.9980316}
-      - {x: -3.57837, y: -0.068847656, z: -2.9989462}
-      - {x: -4.0006943, y: -0.29785156, z: -3.3136253}
-      - {x: -3.9920359, y: -0.5234375, z: -3.9915628}
-      - {x: -3.98242, y: -0.77396894, z: -4.7444673}
-      - {x: -3.5789006, y: -1.012207, z: -4.9946594}
-      - {x: -2.9991677, y: -1.2485509, z: -4.9952154}
-      - {x: -1.5780023, y: -1.8279276, z: -4.996578}
-      - {x: -0.78709966, y: -1.8559372, z: -4.995897}
-      - {x: 0.0038030148, y: -1.8839469, z: -4.9952154}
+      - {x: -0.0046741366, y: 0, z: -3.001119}
+      - {x: 0.0062590837, y: 0, z: -3.0013094}
+      - {x: -0.9924923, y: 0, z: -2.9999998}
+      - {x: -1.8485677, y: 0, z: -2.9988773}
+      - {x: -2.408892, y: 0, z: -2.997102}
+      - {x: -2.9984052, y: 0, z: -2.9980316}
+      - {x: -3.57837, y: 0, z: -2.9989462}
+      - {x: -4.0006943, y: 0, z: -3.3136253}
+      - {x: -3.9920359, y: 0, z: -3.9915628}
+      - {x: -3.98242, y: 0, z: -4.7444673}
+      - {x: -3.5789006, y: 0, z: -4.9946594}
+      - {x: -2.9991677, y: 0, z: -4.9952154}
+      - {x: -1.5780023, y: 0, z: -4.996578}
+      - {x: -0.78709966, y: 0, z: -4.995897}
+      - {x: 0.0038030148, y: 0, z: -4.9952154}
       isClosed: 0
       space: 0
       controlMode: 0
       autoControlLength: 0.3
       boundsUpToDate: 0
       bounds:
-        m_Center: {x: 0, y: 0, z: 0}
-        m_Extent: {x: 0, y: 0, z: 0}
+        m_Center: {x: -1.9941819, y: -0.6320069, z: -0.99880886}
+        m_Extent: {x: 1.9979849, y: 1.25194, z: 3.9971933}
       perAnchorNormalsAngle:
       - 0
       - 0
@@ -350,26 +360,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &488156520 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7975979772746270314, guid: bb03224883abb4442b1745f72de27298,
-    type: 3}
-  m_PrefabInstance: {fileID: 7975979773231278850}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &488156521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488156520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e945047c4c769d5468671473c38d35c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: 0.5
-  rail: {fileID: 354524827}
 --- !u!1 &593261790
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,6 +623,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3920369971298151250, guid: bb03224883abb4442b1745f72de27298,
+        type: 3}
+      propertyPath: rail
+      value: 
+      objectReference: {fileID: 354524827}
     - target: {fileID: 7975979772746270314, guid: bb03224883abb4442b1745f72de27298,
         type: 3}
       propertyPath: m_Name
