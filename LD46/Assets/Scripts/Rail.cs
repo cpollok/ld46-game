@@ -66,10 +66,10 @@ public class Rail : MonoBehaviour {
                              2,  6, -6,  6, -2, -6,  7,  3, -1, -5, -1,  3};
 
         for (int i = 0; i < path_creator.path.NumPoints; i++) {
-            Vector3 up = Vector3.up;
-            Vector3 right = path_creator.path.GetNormal(i);
+            Vector3 up = transform.InverseTransformVector(Vector3.up);
+            Vector3 right = transform.InverseTransformVector(path_creator.path.GetNormal(i));
 
-            Vector3 pos = path_creator.path.GetPoint(i);
+            Vector3 pos = transform.InverseTransformPoint(path_creator.path.GetPoint(i));
 
             //    0 1       2 3
             //    4 5       6 7
@@ -134,10 +134,10 @@ public class Rail : MonoBehaviour {
 
         for (int i = 0; i < num_tie; i++) {
             float t = i / (float)num_tie; 
-            Vector3 pos = path_creator.path.GetPointAtTime(t);
-            Vector3 up = Vector3.up;
-            Vector3 right = path_creator.path.GetNormal(t);
-            Vector3 fwd   = path_creator.path.GetDirection(t);
+            Vector3 pos = transform.InverseTransformPoint(path_creator.path.GetPointAtTime(t));
+            Vector3 up = transform.InverseTransformVector(Vector3.up);
+            Vector3 right = transform.InverseTransformVector(path_creator.path.GetNormal(t));
+            Vector3 fwd   = transform.InverseTransformVector(path_creator.path.GetDirection(t));
 
             int vi = num_rail_verts + i * 8;
             verts[vi + 0] = pos - 0.5f * tie_width * right + tie_height * up + 0.5f * tie_depth * fwd;
