@@ -7,22 +7,27 @@ public class Fire : MonoBehaviour {
     public GameObject flame;
     public float power = 1.0f;
     public float max_power = 1.0f;
-    public float damage_per_s = 0.1f;
+    public float famish_per_s = 0.1f;
     public float stoke_amount = 0.2f;
     
     public Light lamp;
     public float max_light_range = 10.0f;
     private float lamp_normal_intesity = 1.0f;
 
+    public Collider flame_collider;
+
     // Start is called before the first frame update
     void Start() {
         if (lamp)
             lamp_normal_intesity = lamp.intensity;
+
+        if (flame_collider == null)
+            flame_collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update() {
-        power = Mathf.Max(0, power - Time.deltaTime * damage_per_s);
+        Famish(Time.deltaTime * famish_per_s);
 
         float u1 = (float)1.0 - Random.value; //uniform(0,1] random floats
         float u2 = (float)1.0 - Random.value;
@@ -35,6 +40,10 @@ public class Fire : MonoBehaviour {
 
         lamp.range = power / max_power * max_light_range;
         lamp.intensity = lamp_normal_intesity + 0.02f * randStdNormal;
+    }
+
+    public void Famish(float amount) {
+        power = Mathf.Max(0, power - amount);
     }
 
     // Stoke with Wood
