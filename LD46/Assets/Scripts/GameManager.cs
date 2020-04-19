@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : FireInteractor<Fire>
 {
@@ -9,10 +10,12 @@ public class GameManager : FireInteractor<Fire>
     private PathCreation.VertexPath path;
     private Transform cart;
     private PlayerCharacterController character;
+    private Transform canvas;
 
     float cart_progress = 0f;
     public float cart_velocity = 1.0f;
     bool ended = false;
+    private bool paused = false;
 
     private Queue<WorkMachine> workMachines;
 
@@ -20,6 +23,8 @@ public class GameManager : FireInteractor<Fire>
 
     void Start()
     {
+        paused = false;
+
         GameObject find_obj = GameObject.Find("/Rail");
         rail = find_obj.GetComponent<Rail>();
         path = rail.path_creator.path;
@@ -30,12 +35,22 @@ public class GameManager : FireInteractor<Fire>
         find_obj = GameObject.Find("/Player_Character");
         character = find_obj.GetComponent<PlayerCharacterController>();
 
+        canvas = transform.Find("Canvas");
+
         SetupMachines();
     }
 
     void Update()
     {
-        if (ended) { return; }
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) {
+            if (paused) {
+                Resume();
+            }
+            else {
+                Pause();
+            }
+        }
+        if (ended || paused) { return; }
 
         if (!FireStillAlive()) {
             OnFireWentOut();
@@ -117,11 +132,45 @@ public class GameManager : FireInteractor<Fire>
     void GameOver() {
         // Gameover stuff
         ended = true;
+        GameObject gameover = canvas.Find("GameOverScreen").gameObject;
+        gameover.SetActive(true);
     }
 
     void WinLevel() {
         // Win the level
         Debug.Log("Winner winner, nothing blub.");
         ended = true;
+        GameObject win = canvas.Find("WinScreen").gameObject;
+        win.SetActive(true);
+    }
+
+    public void Pause() {
+        paused = true;
+        Time.timeScale = 0;
+        GameObject pause = canvas.Find("PauseScreen").gameObject;
+        pause.SetActive(true);
+    }
+
+    public void Resume() {
+        paused = false;
+        GameObject pause = canvas.Find("PauseScreen").gameObject;
+        pause.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void BackToMenu() {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ReloadLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadNextLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void Quit() {
+        Application.Quit();
     }
 }
