@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacterController : FireInteractor<Fire>
 {
-    GameObject wooden_log;
-    GameObject coal_lumps;
+    public GameObject wooden_log;
+    public GameObject coal_lumps;
     Rigidbody rb;
     
     public GameObject progressBarPrefab;
@@ -17,6 +17,8 @@ public class PlayerCharacterController : FireInteractor<Fire>
     public float coal_duration = 3f;
 
     Interactable interactable;
+
+    public Animator characterAnimator;
 
     Vector2 dir;
     bool interact = false;
@@ -29,15 +31,11 @@ public class PlayerCharacterController : FireInteractor<Fire>
     private bool dead = false;
     public bool Dead { get => dead; set => dead = value; }
 
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody>();
-        wooden_log = transform.Find("Body").Find("Wooden_Log").gameObject;
-        coal_lumps = transform.Find("Body").Find("Coal_Lumps").gameObject;
     }
 
-    void Update()
-    {
+    void Update() {
         if (dead) {
             return;
         }
@@ -53,6 +51,12 @@ public class PlayerCharacterController : FireInteractor<Fire>
             if (dir != Vector2.zero) {
                 Turn();
             }
+        }
+
+        if (dir.magnitude > 0) {
+            characterAnimator.SetFloat("Velocity Z", speed);
+        } else {
+            characterAnimator.SetFloat("Velocity Z", 0);
         }
     }
 
@@ -71,11 +75,13 @@ public class PlayerCharacterController : FireInteractor<Fire>
                 SpawnProgressBar();
                 if (wood_time_start < 0) {
                     wood_time_start = Time.time;
+                    characterAnimator.SetBool("Working", true);
                 }
                 progressBar.SetFill((Time.time - wood_time_start) / wood_duration);
                 if (Time.time - wood_time_start >= wood_duration) {
                     GetWood();
                     wood_time_start = -1f;
+                    characterAnimator.SetBool("Working", false);
                     DestroyProgressBar();
                 }
             }
