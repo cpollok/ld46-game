@@ -130,6 +130,7 @@ public class GameManager : FireInteractor<Fire>
     void OnFireWentOut() {
         Debug.Log("The fire, it is off.");
         cart_velocity = 0f;
+        cart.StopRattleSound();
         GameOver();
     }
 
@@ -158,10 +159,12 @@ public class GameManager : FireInteractor<Fire>
         ended = true;
         GameObject win = canvas.Find("WinScreen").gameObject;
         win.SetActive(true);
+        cart.StopRattleSound();
     }
 
     public void Pause() {
         paused = true;
+        cart.StopRattleSound();
         Time.timeScale = 0;
         GameObject pause = canvas.Find("PauseScreen").gameObject;
         pause.SetActive(true);
@@ -169,6 +172,7 @@ public class GameManager : FireInteractor<Fire>
 
     public void Resume() {
         paused = false;
+        cart.StartRattleSound();
         GameObject pause = canvas.Find("PauseScreen").gameObject;
         pause.SetActive(false);
         Time.timeScale = 1;
