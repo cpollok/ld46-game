@@ -18,6 +18,7 @@ public class GameManager : FireInteractor<Fire>
     private bool paused = false;
 
     private Queue<WorkMachine> workMachines;
+    private Queue<LightBarrier> lightBarriers;
 
     public AudioSource lightAmbience;
     public AudioSource darknessAmbiance;
@@ -68,6 +69,9 @@ public class GameManager : FireInteractor<Fire>
         else if (ReachedWorkMachine()) {
             OnReachWorkMachine();
         }
+        else if (ReachedLightBarrier()) {
+            OnReachLightBarrier();
+        }
         else if (activeMachine != null){
             if (activeMachine.Finished()) {
                 activeMachine = null;
@@ -94,6 +98,13 @@ public class GameManager : FireInteractor<Fire>
         }
         Array.Sort(workMachinesArray, WorkMachine.CompareByPositionOnRail);
         workMachines = new Queue<WorkMachine>(workMachinesArray);
+
+        LightBarrier[] lightBarriersArray = GameObject.FindObjectsOfType<LightBarrier>();
+        foreach (LightBarrier lb in lightBarriersArray) {
+            lb.PutOnRail(rail);
+        }
+        Array.Sort(lightBarriersArray, WorkMachine.CompareByPositionOnRail);
+        lightBarriers = new Queue<LightBarrier>(lightBarriersArray);
     }
 
     void MoveCart() {
@@ -127,6 +138,13 @@ public class GameManager : FireInteractor<Fire>
         return false;
     }
 
+    bool ReachedLightBarrier() {
+        if(lightBarriers.Count > 0) {
+            return cart_progress >= lightBarriers.Peek().GetPositionOnRail();
+        }
+        return false;
+    }
+
     void OnFireWentOut() {
         Debug.Log("The fire, it is off.");
         cart_velocity = 0f;
@@ -143,6 +161,13 @@ public class GameManager : FireInteractor<Fire>
         WorkMachine m = workMachines.Dequeue();
         activeMachine = m;
         m.StartWork();
+        cart.StopRattleSound();
+    }
+
+    void OnReachLightBarrier() {
+        LightBarrier lb = lightBarriers.Dequeue();
+        activeMachine = lb;
+        lb.StartWork();
         cart.StopRattleSound();
     }
 

@@ -56,6 +56,39 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-4664464541802707693
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 8ed3a7e7f98d00c418d77303ce4b1872
+  m_EffectName: Attenuation
+  m_MixLevel: a7075130bfb8de145ae071eee0f5874e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-3267307148956841120
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ding
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 5cf1f1dc83046e74195cb23630e024ee
+  m_Children: []
+  m_Volume: 71a88d5160ded854381fc6a1eb35b31b
+  m_Pitch: 4b2d52b7383bbec40b2a074834b30df5
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4664464541802707693}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &-2600722521149724328
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -70,6 +103,7 @@ AudioMixerGroupController:
   - {fileID: 3004761178178880921}
   - {fileID: 2416088174703494971}
   - {fileID: 9180457451452601969}
+  - {fileID: -3267307148956841120}
   m_Volume: 1371649b66e20a74b8e607e13ad84964
   m_Pitch: b952d311e6fbdea4bb0ac6596f7094dc
   m_Send: 00000000000000000000000000000000
@@ -104,6 +138,7 @@ AudioMixerController:
     - 7d44bcb5d14cf3e41a99e79cab10af34
     - d32d998f203f3d74487c7b7a948f2e05
     - ef3e3822f6f249548bd5206044145c5d
+    - 5cf1f1dc83046e74195cb23630e024ee
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -154,6 +189,7 @@ AudioMixerSnapshotController:
   m_FloatValues:
     95054210aab3915498dad338336e984e: 1.7477665
     c8d7fe503e04b5040a81ca156e41a40b: -4.5603485
+    71a88d5160ded854381fc6a1eb35b31b: 14.9016905
     fc44f6a3a7aa59948845e1eefc26c7c5: -4.5603476
     ee8a3e7c2a96bbe4e92b3a32612489d8: 5.1526933
     c324e8def0f9e0144b46f424fd861157: 1.7477665
