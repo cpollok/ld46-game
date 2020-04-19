@@ -7,7 +7,7 @@ public class GameManager : FireInteractor<Fire>
 {
     private Rail rail;
     private PathCreation.VertexPath path;
-    private Transform cart;
+    private Cart cart;
     private PlayerCharacterController character;
 
     float cart_progress = 0f;
@@ -15,6 +15,9 @@ public class GameManager : FireInteractor<Fire>
     bool ended = false;
 
     private Queue<WorkMachine> workMachines;
+
+    public AudioSource lightAmbience;
+    public AudioSource darknessAmbiance;
 
     [SerializeField] private IMachine activeMachine;
 
@@ -25,7 +28,7 @@ public class GameManager : FireInteractor<Fire>
         path = rail.path_creator.path;
 
         find_obj = GameObject.Find("/Cart");
-        cart = find_obj.transform;
+        cart = find_obj.GetComponent<Cart>();
 
         find_obj = GameObject.Find("/Player_Character");
         character = find_obj.GetComponent<PlayerCharacterController>();
@@ -36,6 +39,7 @@ public class GameManager : FireInteractor<Fire>
     void Update()
     {
         if (ended) { return; }
+
 
         if (!FireStillAlive()) {
             OnFireWentOut();
@@ -57,6 +61,15 @@ public class GameManager : FireInteractor<Fire>
         else {
             MoveCart();
         }
+
+        float darkFraction = Mathf.Clamp01(character.DistanceToFire() / Mathf.Max(fire.CurrentRange, 1e-5f)); // Avoid NaN
+        float lightVol = Mathf.Cos(darkFraction * Mathf.PI) * 0.5f + 0.5f;
+
+        if (lightAmbience)
+            lightAmbience.volume = lightVol;
+
+        if (darknessAmbiance)
+            darknessAmbiance.volume = 1.0f - lightVol;
     }
 
     void SetupMachines() {
@@ -73,7 +86,8 @@ public class GameManager : FireInteractor<Fire>
         Vector3 position = path.GetPointAtDistance(cart_progress);
         Vector3 direction = path.GetDirectionAtDistance(cart_progress);
         
-        cart.SetPositionAndRotation(position, Quaternion.LookRotation(direction, Vector3.up));
+        cart.transform.SetPositionAndRotation(position, Quaternion.LookRotation(direction, Vector3.up));
+        cart.StartRattleSound();
     }
 
     bool FireStillAlive() {
@@ -112,6 +126,7 @@ public class GameManager : FireInteractor<Fire>
         WorkMachine m = workMachines.Dequeue();
         activeMachine = m;
         m.StartWork();
+        cart.StopRattleSound();
     }
 
     void GameOver() {

@@ -98,9 +98,14 @@ public class PlayerCharacterController : FireInteractor<Fire>
         }
     }
 
+    public float DistanceToFire() {
+        Vector3 delta = (transform.position - fire.transform.position);
+        delta.y = 0;  // 2D Distance
+        return delta.magnitude;
+    }
+
     bool InFireRange() {
-        float distance_to_fire = (transform.position - fire.transform.position).magnitude;
-        return distance_to_fire <= fire.CurrentRange;
+        return DistanceToFire() <= fire.CurrentRange;
     }
 
     void GetWood() {

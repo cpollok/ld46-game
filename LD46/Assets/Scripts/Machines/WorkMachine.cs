@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WorkMachine : MonoBehaviour, IMachine {
+
+    public AudioSource machineSound;
+
+    void Start() {
+        if (!machineSound) {
+            machineSound = GetComponent<AudioSource>();
+        }
+    }
+
     public static int CompareByPositionOnRail(IMachine x, IMachine y) {
         if (x.GetPositionOnRail() > y.GetPositionOnRail()) {
             return 1;
@@ -39,11 +48,17 @@ public class WorkMachine : MonoBehaviour, IMachine {
 
     public void StartWork() {
         work_start = Time.time;
+        machineSound.Play();
+        Debug.Log("Start work called.");
     }
 
     void ShowProgress() {
         if (Progress > 0f && Progress < 1f) {
-            Debug.Log("Show progress: " + (Progress * 100).ToString() + "%");
+            // Debug.Log("Show progress: " + (Progress * 100).ToString() + "%");
+        }
+
+        if (Finished() && machineSound.isPlaying) {
+            machineSound.Stop();
         }
     }
 

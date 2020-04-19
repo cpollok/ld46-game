@@ -10,6 +10,7 @@ public class Fire : MonoBehaviour {
     public float famish_per_s = 0.1f;
     public float stoke_amount = 0.2f;
     public float super_stoke_amount = 0.5f;
+    public float audioScaleFactor =10.0f;
 
     public Light lamp;
     public float max_light_range = 10.0f;
@@ -18,6 +19,8 @@ public class Fire : MonoBehaviour {
 
     public Collider flame_collider;
 
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start() {
         if (lamp)
@@ -25,6 +28,9 @@ public class Fire : MonoBehaviour {
 
         if (flame_collider == null)
             flame_collider = GetComponent<Collider>();
+
+        if (!audioSource)
+            audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -42,6 +48,11 @@ public class Fire : MonoBehaviour {
 
         lamp.range = CurrentRange;
         lamp.intensity = lamp_normal_intesity + 0.02f * randStdNormal;
+
+        if (audioSource) {
+            audioSource.volume = power / max_power;
+            audioSource.maxDistance = CurrentRange * audioScaleFactor;
+        }
     }
 
     public void Famish(float amount) {
