@@ -77,7 +77,7 @@ public class GameManager : FireInteractor<Fire>
             MoveCart();
         }
 
-        float darkFraction = Mathf.Clamp01(character.DistanceToFire() / Mathf.Max(fire.CurrentRange, 1e-5f)); // Avoid NaN
+        float darkFraction = Mathf.Clamp01((character.DistanceToFire() - (fire.CurrentRange * 0.35f))/ Mathf.Max(fire.CurrentRange, 1e-5f)); // Avoid NaN
         float lightVol = Mathf.Cos(darkFraction * Mathf.PI) * 0.5f + 0.5f;
 
         if (lightAmbience)
