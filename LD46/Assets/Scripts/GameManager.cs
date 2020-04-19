@@ -16,8 +16,6 @@ public class GameManager : FireInteractor<Fire>
 
     private Queue<WorkMachine> workMachines;
 
-    private Queue<Refinery> refineries;
-
     [SerializeField] private IMachine activeMachine;
 
     void Start()
@@ -68,13 +66,6 @@ public class GameManager : FireInteractor<Fire>
         }
         Array.Sort(workMachinesArray, WorkMachine.CompareByPositionOnRail);
         workMachines = new Queue<WorkMachine>(workMachinesArray);
-
-        Refinery[] refineriesArray = GameObject.FindObjectsOfType<Refinery>();
-        foreach (Refinery r in refineriesArray) {
-            r.PutOnRail(rail);
-        }
-        Array.Sort(refineriesArray, WorkMachine.CompareByPositionOnRail);
-        refineries = new Queue<Refinery>(refineriesArray);
     }
 
     void MoveCart() {

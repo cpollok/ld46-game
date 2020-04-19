@@ -6,18 +6,22 @@ using UnityEngine.InputSystem;
 public class PlayerCharacterController : FireInteractor<Fire>
 {
     GameObject wooden_log;
+    GameObject coal_lumps;
     Rigidbody rb;
 
     public float speed = 5f;
     public float wood_duration = 2f;
+    public float coal_duration = 3f;
 
     Interactable interactable;
 
     Vector2 dir;
     bool interact = false;
     bool holding_wood = false;
+    bool holding_coal = false;
 
     private float wood_time_start = -1f;
+    private float coal_time_start = -1f;
 
     private bool dead = false;
     public bool Dead { get => dead; set => dead = value; }
@@ -26,6 +30,7 @@ public class PlayerCharacterController : FireInteractor<Fire>
     {
         rb = GetComponent<Rigidbody>();
         wooden_log = transform.Find("Body").Find("Wooden_Log").gameObject;
+        coal_lumps = transform.Find("Body").Find("Coal_Lumps").gameObject;
     }
 
     void Update()
@@ -57,30 +62,39 @@ public class PlayerCharacterController : FireInteractor<Fire>
     }
     
     void Interact() {
-        // Check if too far from fire
         if (InFireRange() && interact && interactable) {
-            if (!holding_wood) {
-                if (interactable is WoodSite) {
-                    Debug.Log("Hacking Wood " + (Time.time - wood_time_start).ToString());
-                    if (wood_time_start < 0) {
-                        wood_time_start = Time.time;
-                    }
-                    if (Time.time - wood_time_start >= wood_duration) {
-                        GetWood();
-                        wood_time_start = -1f;
-                    }
+            if(!holding_wood && !holding_coal && interactable is WoodSite) {
+                Debug.Log("Hacking Wood " + (Time.time - wood_time_start).ToString());
+                if (wood_time_start < 0) {
+                    wood_time_start = Time.time;
+                }
+                if (Time.time - wood_time_start >= wood_duration) {
+                    GetWood();
+                    wood_time_start = -1f;
                 }
             }
-            else {
-                if (interactable is CartInteractable) {
-                    Debug.Log("Interacting with fire cart");
+            else if(holding_wood && interactable is Refinery) {
+                Debug.Log("Processing Wood to Coal " + (Time.time - coal_time_start).ToString());
+                if (coal_time_start < 0) {
+                    coal_time_start = Time.time;
+                }
+                if (Time.time - coal_time_start >= coal_duration) {
+                    GetCoal();
+                    coal_time_start = -1f;
+                }
+            }
+            else if(interactable is CartInteractable) {
+                if (holding_wood) {
+                    Debug.Log("Stoking fire!");
                     LoseWood();
                     fire.Stoke();
                 }
+                else if (holding_coal) {
+                    Debug.Log("SuperStoking fire!");
+                    LoseCoal();
+                    fire.SuperStoke();
+                }
             }
-            
-            // if interactable is Machine
-            // if interactable is Cart/Fire
         }
     }
 
@@ -97,6 +111,16 @@ public class PlayerCharacterController : FireInteractor<Fire>
     void LoseWood() {
         holding_wood = false;
         wooden_log.SetActive(false);
+    }
+
+    void GetCoal() {
+        holding_coal = true;
+        coal_lumps.SetActive(true);
+    }
+
+    void LoseCoal() {
+        holding_coal = false;
+        coal_lumps.SetActive(false);
     }
 
     public void OnMove(InputAction.CallbackContext ctx){

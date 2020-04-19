@@ -9,7 +9,8 @@ public class Fire : MonoBehaviour {
     public float max_power = 1.0f;
     public float famish_per_s = 0.1f;
     public float stoke_amount = 0.2f;
-    
+    public float super_stoke_amount = 0.5f;
+
     public Light lamp;
     public float max_light_range = 10.0f;
     public float CurrentRange { get { return power / max_power * max_light_range; } }
@@ -53,5 +54,9 @@ public class Fire : MonoBehaviour {
         if (power > max_power) {
             power = max_power;
         }
+    }
+
+    public void SuperStoke() {
+        power = Mathf.Min(power + super_stoke_amount, max_power);
     }
 }
