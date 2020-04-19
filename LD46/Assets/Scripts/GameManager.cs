@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,12 @@ public class GameManager : FireInteractor<Fire>
     public float cart_velocity = 1.0f;
     bool ended = false;
 
+    private Queue<WorkMachine> workMachines;
+
+    private Queue<Refinery> refineries;
+
+    [SerializeField] private IMachine activeMachine;
+
     void Start()
     {
         GameObject find_obj = GameObject.Find("/Rail");
@@ -24,6 +31,8 @@ public class GameManager : FireInteractor<Fire>
 
         find_obj = GameObject.Find("/Player_Character");
         character = find_obj.GetComponent<PlayerCharacterController>();
+
+        SetupMachines();
     }
 
     void Update()
@@ -39,9 +48,33 @@ public class GameManager : FireInteractor<Fire>
         else if (CartReachedEnd()) {
             WinLevel();
         }
+        else if (ReachedWorkMachine()) {
+            OnReachWorkMachine();
+        }
+        else if (activeMachine != null){
+            if (activeMachine.Finished()) {
+                activeMachine = null;
+            }
+        }
         else {
             MoveCart();
         }
+    }
+
+    void SetupMachines() {
+        WorkMachine[] workMachinesArray = GameObject.FindObjectsOfType<WorkMachine>();
+        foreach (WorkMachine m in workMachinesArray) {
+            m.PutOnRail(rail);
+        }
+        Array.Sort(workMachinesArray, WorkMachine.CompareByPositionOnRail);
+        workMachines = new Queue<WorkMachine>(workMachinesArray);
+
+        Refinery[] refineriesArray = GameObject.FindObjectsOfType<Refinery>();
+        foreach (Refinery r in refineriesArray) {
+            r.PutOnRail(rail);
+        }
+        Array.Sort(refineriesArray, WorkMachine.CompareByPositionOnRail);
+        refineries = new Queue<Refinery>(refineriesArray);
     }
 
     void MoveCart() {
@@ -67,6 +100,13 @@ public class GameManager : FireInteractor<Fire>
         return cart_progress >= path.length*0.99;
     }
 
+    bool ReachedWorkMachine() {
+        if(workMachines.Count > 0) {
+            return cart_progress >= workMachines.Peek().GetPositionOnRail();
+        }
+        return false;
+    }
+
     void OnFireWentOut() {
         Debug.Log("The fire, it is off.");
         GameOver();
@@ -75,6 +115,12 @@ public class GameManager : FireInteractor<Fire>
     void OnCharacterDies() {
         Debug.Log("You stupid?");
         GameOver();
+    }
+
+    void OnReachWorkMachine() {
+        WorkMachine m = workMachines.Dequeue();
+        activeMachine = m;
+        m.StartWork();
     }
 
     void GameOver() {
