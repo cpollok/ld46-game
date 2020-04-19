@@ -8,7 +8,7 @@ public class PlayerCharacterController : FireInteractor<Fire>
     GameObject wooden_log;
     GameObject coal_lumps;
     Rigidbody rb;
-
+    
     public GameObject progressBarPrefab;
     ProgressBar progressBar;
 
