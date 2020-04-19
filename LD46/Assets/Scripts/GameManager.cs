@@ -129,6 +129,7 @@ public class GameManager : FireInteractor<Fire>
 
     void OnFireWentOut() {
         Debug.Log("The fire, it is off.");
+        cart_velocity = 0f;
         GameOver();
     }
 
