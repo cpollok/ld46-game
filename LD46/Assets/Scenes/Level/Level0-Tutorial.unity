@@ -602,6 +602,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Wind (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4393156927355477480, guid: 7e72f005bae98234fb911cb7c7f7b399,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4393156927355477483, guid: 7e72f005bae98234fb911cb7c7f7b399,
         type: 3}
       propertyPath: famish_per_s
@@ -1200,11 +1205,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 17919391867962145, guid: 34f33579503079a4eb4dd3f0dc252326,
-        type: 3}
-      propertyPath: cart_velocity
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 17919391867962146, guid: 34f33579503079a4eb4dd3f0dc252326,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1353,6 +1353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_Wind
+      objectReference: {fileID: 0}
+    - target: {fileID: 4393156927355477480, guid: 7e72f005bae98234fb911cb7c7f7b399,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4393156927355477485, guid: 7e72f005bae98234fb911cb7c7f7b399,
         type: 3}
