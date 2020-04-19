@@ -12,6 +12,7 @@ public class Fire : MonoBehaviour {
     
     public Light lamp;
     public float max_light_range = 10.0f;
+    public float CurrentRange { get { return power / max_power * max_light_range; } }
     private float lamp_normal_intesity = 1.0f;
 
     public Collider flame_collider;
@@ -38,7 +39,7 @@ public class Fire : MonoBehaviour {
 
         flame.transform.localScale = new Vector3(scale, scale, scale);
 
-        lamp.range = power / max_power * max_light_range;
+        lamp.range = CurrentRange;
         lamp.intensity = lamp_normal_intesity + 0.02f * randStdNormal;
     }
 
