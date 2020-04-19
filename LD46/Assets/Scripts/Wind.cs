@@ -9,6 +9,8 @@ public class Wind : FireInteractor<Fire> {
 
     private BoxCollider area_of_effect;
 
+    private int raycastMask = 0;
+
     // Start is called before the first frame update
     void Start() {
         area_of_effect = GetComponent<BoxCollider>();
@@ -18,9 +20,11 @@ public class Wind : FireInteractor<Fire> {
             float avg_particle_size = 0.5f * (s.main.startSize.constantMin + s.main.startSize.constantMax);
 
             var shape = s.shape;
-            shape.scale = new Vector3(area_of_effect.size.x - avg_particle_size,
-                                        area_of_effect.size.y - avg_particle_size, 1);
+            shape.scale = new Vector3(Mathf.Max(0.5f * area_of_effect.size.x, area_of_effect.size.x - avg_particle_size),
+                                      Mathf.Max(0.5f * area_of_effect.size.y, area_of_effect.size.y - avg_particle_size), 1);
         }
+
+        raycastMask = LayerMask.GetMask("WindColliders", "Fire");
     }
 
     // Update is called once per frame
@@ -34,7 +38,9 @@ public class Wind : FireInteractor<Fire> {
             Vector3 raycast_dir    = transform.forward;
 
             RaycastHit hit;
-            if (Physics.Raycast(raycast_origin + raycast_dir * 0.1f, raycast_dir, out hit, area_of_effect.size.z * 2)) {
+            if (Physics.Raycast(raycast_origin + raycast_dir * 0.1f,
+                                raycast_dir, out hit, area_of_effect.size.z * 2,
+                                raycastMask, QueryTriggerInteraction.Ignore)) {
 
                 Debug.DrawRay(raycast_origin, raycast_dir * hit.distance, Color.cyan);
                 if (hit.collider == fire.flame_collider) {

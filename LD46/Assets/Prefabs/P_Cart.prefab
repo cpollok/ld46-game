@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 7975979772604363417}
   - component: {fileID: 7975979772604363416}
   - component: {fileID: 7975979772604363419}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,8 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7524595ca00304942b2dc98ca5a24026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 1
-  rail: {fileID: 0}
 --- !u!1 &7975979772887098319
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,10 +667,11 @@ MonoBehaviour:
   flame: {fileID: 7975979773288236825}
   power: 1
   max_power: 1
-  damage_per_s: 0.01
+  famish_per_s: 0.1
   stoke_amount: 0.3
   lamp: {fileID: 7975979773307136895}
   max_light_range: 10
+  flame_collider: {fileID: 0}
 --- !u!1 &7975979773368647347
 GameObject:
   m_ObjectHideFlags: 0
