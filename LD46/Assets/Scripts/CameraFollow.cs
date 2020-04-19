@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private Transform follow;
+    [SerializeField] public Transform follow;
     [SerializeField] private Vector3 positionOffset;
     
     // Update is called once per frame
