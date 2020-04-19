@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 17919391867962146}
   - component: {fileID: 17919391867962145}
+  - component: {fileID: 492739921111257347}
   m_Layer: 0
   m_Name: P_GameManager
   m_TagString: Untagged
@@ -44,7 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb4ae85ae07e824b8ef1b3d00da31c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene_loader: {fileID: 492739921111257347}
   cart_velocity: 1
+--- !u!114 &492739921111257347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17919391867962147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823684d64cd00d9438efcf29ce536b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &61583921989942270
 GameObject:
   m_ObjectHideFlags: 0

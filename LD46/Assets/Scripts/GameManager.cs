@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : FireInteractor<Fire>
 {
@@ -11,6 +10,7 @@ public class GameManager : FireInteractor<Fire>
     private Transform cart;
     private PlayerCharacterController character;
     private Transform canvas;
+    [SerializeField] private SceneLoader scene_loader;
 
     float cart_progress = 0f;
     public float cart_velocity = 1.0f;
@@ -159,18 +159,21 @@ public class GameManager : FireInteractor<Fire>
     }
 
     public void BackToMenu() {
-        SceneManager.LoadScene(0);
+        Resume();
+        scene_loader.BackToMenu();
     }
 
     public void ReloadLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Resume();
+        scene_loader.ReloadLevel();
     }
 
     public void LoadNextLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Resume();
+        scene_loader.LoadNextLevel();
     }
 
     public void Quit() {
-        Application.Quit();
+        scene_loader.Quit();
     }
 }
