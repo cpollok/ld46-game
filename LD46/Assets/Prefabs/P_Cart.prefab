@@ -10352,8 +10352,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7975979772887098319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.112, y: -0, z: -0.022}
+  m_LocalScale: {x: 1.368, y: 1, z: 1.3062}
   m_Children: []
   m_Father: {fileID: 7975979773368647344}
   m_RootOrder: 0
@@ -10570,7 +10570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd2e0f78a0fbad429ce985a5409a0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flame: {fileID: 0}
   flameParticles: {fileID: 3918743052859599417}
   lowerRandomSize: 0.4
   upperRandomSize: 0.8
