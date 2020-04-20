@@ -26,7 +26,6 @@ public class TutorialManager : FireInteractor<Fire> {
     }
 
     private void Update() {
-        Debug.Log("Step: " + step.ToString());
         switch (step) {
             case 1:
                 StartCoroutine(WaitForStoke());
@@ -77,7 +76,6 @@ public class TutorialManager : FireInteractor<Fire> {
     }
 
     private bool NearCheckpoint(IMachine machine, float threshold) {
-        Debug.Log("Called near checkpoint " + (machine.GetPositionOnRail() - gm.cart_progress).ToString());
         return machine.GetPositionOnRail() - gm.cart_progress <= threshold;
     }
 
