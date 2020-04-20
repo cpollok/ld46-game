@@ -1185,8 +1185,8 @@ MonoBehaviour:
   flame: {fileID: 7975979773288236825}
   power: 1
   max_power: 1
-  famish_per_s: 0.05
-  stoke_amount: 0.2
+  famish_per_s: 0.03
+  stoke_amount: 0.25
   super_stoke_amount: 0.5
   audioScaleFactor: 4
   lamp: {fileID: 7975979773307136895}

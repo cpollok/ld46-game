@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene_loader: {fileID: 492739921111257347}
-  cart_velocity: 1
+  cart_progress: 0
+  cart_velocity: 1.5
   lightAmbience: {fileID: 1173284447923199322}
   darknessAmbiance: {fileID: 4297510140206259387}
 --- !u!114 &492739921111257347
