@@ -12,7 +12,7 @@ public class GameManager : FireInteractor<Fire>
     private Transform canvas;
     [SerializeField] private SceneLoader scene_loader;
 
-    float cart_progress = 0f;
+    public float cart_progress = 0f;
     public float cart_velocity = 1.0f;
     bool ended = false;
     private bool paused = false;
@@ -77,7 +77,7 @@ public class GameManager : FireInteractor<Fire>
                 activeMachine = null;
             }
         }
-        else {
+        else if (cart_velocity > 0f){
             MoveCart();
         }
 
@@ -128,7 +128,7 @@ public class GameManager : FireInteractor<Fire>
     }
 
     bool CartReachedEnd() {
-        return cart_progress >= path.length*0.99;
+        return cart_progress >= path.length - 0.5f;
     }
 
     bool ReachedWorkMachine() {

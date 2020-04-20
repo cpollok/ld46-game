@@ -71,7 +71,7 @@ public class PlayerCharacterController : FireInteractor<Fire>
     void Interact() {
         if (InFireRange() && interact && interactable) {
             if(!holding_wood && !holding_coal && interactable is WoodSite) {
-                Debug.Log("Hacking Wood " + (Time.time - wood_time_start).ToString());
+                //Debug.Log("Hacking Wood " + (Time.time - wood_time_start).ToString());
                 SpawnProgressBar();
                 if (wood_time_start < 0) {
                     wood_time_start = Time.time;
@@ -86,7 +86,7 @@ public class PlayerCharacterController : FireInteractor<Fire>
                 }
             }
             else if(holding_wood && interactable is Refinery) {
-                Debug.Log("Processing Wood to Coal " + (Time.time - coal_time_start).ToString());
+                //Debug.Log("Processing Wood to Coal " + (Time.time - coal_time_start).ToString());
                 SpawnProgressBar();
                 if (coal_time_start < 0) {
                     coal_time_start = Time.time;
@@ -100,12 +100,12 @@ public class PlayerCharacterController : FireInteractor<Fire>
             }
             else if(interactable is CartInteractable) {
                 if (holding_wood) {
-                    Debug.Log("Stoking fire!");
+                    //Debug.Log("Stoking fire!");
                     LoseWood();
                     fire.Stoke();
                 }
                 else if (holding_coal) {
-                    Debug.Log("SuperStoking fire!");
+                    //Debug.Log("SuperStoking fire!");
                     LoseCoal();
                     fire.SuperStoke();
                 }
@@ -179,14 +179,14 @@ public class PlayerCharacterController : FireInteractor<Fire>
     private void OnTriggerEnter(Collider other) {
         Interactable other_Interactable = other.GetComponent<Interactable>();
         if (other_Interactable) {
-            Debug.Log("Enter Interactable");
+            //Debug.Log("Enter Interactable");
             interactable = other_Interactable;
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.GetComponent<Interactable>()) {
-            Debug.Log("Exit Interactable");
+            //Debug.Log("Exit Interactable");
             interactable = null;
         }
     }

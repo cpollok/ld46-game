@@ -1186,11 +1186,11 @@ MonoBehaviour:
   power: 1
   max_power: 1
   famish_per_s: 0.05
-  stoke_amount: 0.3
+  stoke_amount: 0.2
   super_stoke_amount: 0.5
   audioScaleFactor: 4
   lamp: {fileID: 7975979773307136895}
-  max_light_range: 10
+  max_light_range: 20
   flame_collider: {fileID: 5340355700700348801}
   audioSource: {fileID: 4559722426052797984}
 --- !u!82 &4559722426052797984

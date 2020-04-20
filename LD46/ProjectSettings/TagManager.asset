@@ -14,8 +14,8 @@ TagManager:
   - UI
   - 
   - 
-  - Lighting
-  - Ground
+  - WindColliders
+  - Fire
   - Postprocessing
   - 
   - 

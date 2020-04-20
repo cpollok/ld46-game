@@ -17,7 +17,7 @@ public class Cart : MonoBehaviour {
         if (soundStarted)
             return;
 
-        Debug.Log("Starting Cart rattle sound");
+        //Debug.Log("Starting Cart rattle sound");
         LeanTween.value(gameObject, UpdateRattleVolume,
                         rattleSound.volume, 1.0f,
                         (1.0f - rattleSound.volume) * 0.2f).setEase(LeanTweenType.easeInOutCubic);
@@ -28,7 +28,7 @@ public class Cart : MonoBehaviour {
         if (!soundStarted)
             return;
 
-        Debug.Log("Stopping Cart rattle sound");
+        //Debug.Log("Stopping Cart rattle sound");
         LeanTween.value(gameObject, UpdateRattleVolume,
                         rattleSound.volume, 0.0f,
                         (rattleSound.volume) * 0.2f).setEase(LeanTweenType.easeInOutCubic);
