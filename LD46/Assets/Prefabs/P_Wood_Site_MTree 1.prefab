@@ -126,6 +126,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Wood_Site_MTree
       objectReference: {fileID: 0}
+    - target: {fileID: 3339502087501725921, guid: 5bcd688cc260a814c92109812f7f909e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: adf1cc056e2f468419a4840c12fe7877, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bcd688cc260a814c92109812f7f909e, type: 3}
 --- !u!4 &2590093019751389230 stripped
