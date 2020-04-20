@@ -5,6 +5,7 @@ using UnityEngine;
 public class Wind : FireInteractor<Fire> {
 
     public float famish_per_s = 0.2f;
+    public float visualBuffer = 0.1f;
     public ParticleSystem[] particle_systems;
 
     public Camera mainCamera;
@@ -39,11 +40,12 @@ public class Wind : FireInteractor<Fire> {
                            area_of_effect.transform.position - eInWorld, Color.red);
 
             bool onScreen = false;
-            for (float x = -1.0f; x <= 1.0f && !onScreen; x += 0.5f / eInWorld.x) {
-                for (float z = -1.0f; z <= 1.0f && !onScreen; z += 0.5f / eInWorld.z) {
+            for (float x = -1.0f; x <= 1.0f && !onScreen; x += Mathf.Abs(0.5f / eInWorld.x)) {
+                for (float z = -1.0f; z <= 1.0f && !onScreen; z += Mathf.Abs(0.5f / eInWorld.z)) {
                     Vector3 worldSamplePoint = new Vector3(eInWorld.x * x, 0, eInWorld.z * z) + area_of_effect.transform.position;
                     Vector3 vpPoint = mainCamera.WorldToViewportPoint(worldSamplePoint);
-                    onScreen = vpPoint.x > 0 && vpPoint.x < 1 && vpPoint.y > 0 && vpPoint.y < 1;
+                    onScreen = vpPoint.x > -visualBuffer && vpPoint.x < 1 + visualBuffer && 
+                               vpPoint.y > -visualBuffer && vpPoint.y < 1 + visualBuffer;
                     Debug.DrawRay(worldSamplePoint, Vector3.up * 0.2f);
                 }
             }
