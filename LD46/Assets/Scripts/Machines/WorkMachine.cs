@@ -5,10 +5,14 @@ using UnityEngine;
 public class WorkMachine : MonoBehaviour, IMachine {
 
     public AudioSource machineSound;
+    public Animator animator;
 
     void Start() {
         if (!machineSound) {
             machineSound = GetComponent<AudioSource>();
+        }
+        if (!animator) {
+            animator = GetComponent<Animator>();
         }
     }
 
@@ -50,6 +54,7 @@ public class WorkMachine : MonoBehaviour, IMachine {
         work_start = Time.time;
         machineSound.Play();
         Debug.Log("Start work called.");
+        animator.SetTrigger("StartWork");
     }
 
     void ShowProgress() {
