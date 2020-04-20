@@ -8,6 +8,8 @@ public class LightBarrier : FireInteractor<Fire>, IMachine
     public float power_req = 0.95f;
     bool startedWork = false;
 
+    public GameObject beam;
+
     private PathCreation.VertexPath path;
     private float position_on_rail;
 
@@ -26,12 +28,17 @@ public class LightBarrier : FireInteractor<Fire>, IMachine
     {
         if (startedWork && Finished()) {
             dingSound.Play();
+            RaiseBeam();
             startedWork = false;
         }
     }
 
     public void StartWork() {
         startedWork = true;
+    }
+
+    private void RaiseBeam() {
+        LeanTween.rotateAroundLocal(beam, Vector3.up, 75, 1f).setEaseInElastic().setEaseOutBounce();
     }
 
     public void PutOnRail(Rail rail) {
