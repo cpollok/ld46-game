@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Fire : MonoBehaviour {
+    public ParticleSystem flameParticles;
+    public float lowerRandomSize, upperRandomSize;
+    public float minStartSpeed, maxStartSpeed; 
 
-    public GameObject flame;
     public float power = 1.0f;
     public float max_power = 1.0f;
     public float famish_per_s = 0.1f;
     public float stoke_amount = 0.2f;
     public float super_stoke_amount = 0.5f;
-    public float audioScaleFactor =10.0f;
+    public float audioScaleFactor = 10.0f;
 
     public Light lamp;
     public float max_light_range = 10.0f;
@@ -43,9 +46,11 @@ public class Fire : MonoBehaviour {
         float randNormal = 1.0f + 0.01f * randStdNormal; //random normal(mean,stdDev^2)
         
         float scale = power * randNormal;
-
-        flame.transform.localScale = new Vector3(scale, scale, scale);
-
+        
+        MainModule main = flameParticles.main;
+        main.startSize = new MinMaxCurve(scale * lowerRandomSize, scale * upperRandomSize);
+        main.startSpeed = new MinMaxCurve(minStartSpeed + scale * (maxStartSpeed - minStartSpeed));
+        
         lamp.range = CurrentRange;
         lamp.intensity = lamp_normal_intesity + 0.02f * randStdNormal;
 
