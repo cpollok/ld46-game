@@ -5,7 +5,10 @@ using UnityEngine;
 public class Wind : FireInteractor<Fire> {
 
     public float famish_per_s = 0.2f;
+    public float visualBuffer = 0.1f;
     public ParticleSystem[] particle_systems;
+
+    public Camera mainCamera;
 
     private BoxCollider area_of_effect;
 
@@ -14,6 +17,8 @@ public class Wind : FireInteractor<Fire> {
     // Start is called before the first frame update
     void Start() {
         area_of_effect = GetComponent<BoxCollider>();
+
+        mainCamera = GameObject.FindObjectOfType<Camera>();
 
         foreach (ParticleSystem s in particle_systems) {
 
@@ -29,6 +34,33 @@ public class Wind : FireInteractor<Fire> {
 
     // Update is called once per frame
     void Update() {
+        if (mainCamera) {
+            Vector3 eInWorld = area_of_effect.transform.TransformVector(area_of_effect.size) * 0.5f;
+            Debug.DrawLine(area_of_effect.transform.position + eInWorld,
+                           area_of_effect.transform.position - eInWorld, Color.red);
+
+            bool onScreen = false;
+            for (float x = -1.0f; x <= 1.0f && !onScreen; x += Mathf.Abs(0.5f / eInWorld.x)) {
+                for (float z = -1.0f; z <= 1.0f && !onScreen; z += Mathf.Abs(0.5f / eInWorld.z)) {
+                    Vector3 worldSamplePoint = new Vector3(eInWorld.x * x, 0, eInWorld.z * z) + area_of_effect.transform.position;
+                    Vector3 vpPoint = mainCamera.WorldToViewportPoint(worldSamplePoint);
+                    onScreen = vpPoint.x > -visualBuffer && vpPoint.x < 1 + visualBuffer && 
+                               vpPoint.y > -visualBuffer && vpPoint.y < 1 + visualBuffer;
+                    Debug.DrawRay(worldSamplePoint, Vector3.up * 0.2f);
+                }
+            }
+
+            if (onScreen) {
+                foreach (ParticleSystem p in particle_systems)
+                    if (!p.isPlaying)
+                        p.Play();
+            } else {
+                foreach (ParticleSystem p in particle_systems)
+                    if (p.isPlaying)
+                        p.Pause();
+            }
+        }
+
         Vector3 fire_on_plane = transform.InverseTransformPoint(fire.flame_collider.bounds.center);
         fire_on_plane.z = 0;
         if (Mathf.Abs(fire_on_plane.x) <= area_of_effect.size.x * 0.5f &&
