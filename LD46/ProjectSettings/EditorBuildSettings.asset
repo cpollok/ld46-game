@@ -12,6 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Level/Level0-Tutorial.unity
     guid: f6beb3c16908e174fa208dfe310f9722
   - enabled: 1
+    path: Assets/Scenes/Level/Level1.unity
+    guid: 05425ffe453b4a644915deadace8155f
+  - enabled: 1
+    path: Assets/Scenes/Level/Level2.unity
+    guid: ee59968437cf6164f89ef5225ad05cec
+  - enabled: 1
+    path: Assets/Scenes/Level/Level3-StormStormStorm.unity
+    guid: 43ba48d1c89a90c43b617be0b66b730d
+  - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: 6569b8d43fb465c4e8043bdd7ec7a2c5
   m_configObjects: {}
