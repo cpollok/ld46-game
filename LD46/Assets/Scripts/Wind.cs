@@ -42,7 +42,7 @@ public class Wind : FireInteractor<Fire> {
             bool onScreen = false;
             for (float x = -1.0f; x <= 1.0f && !onScreen; x += Mathf.Abs(0.5f / eInWorld.x)) {
                 for (float z = -1.0f; z <= 1.0f && !onScreen; z += Mathf.Abs(0.5f / eInWorld.z)) {
-                    Vector3 worldSamplePoint = new Vector3(eInWorld.x * x, 0, eInWorld.z * z) + area_of_effect.transform.position;
+                    Vector3 worldSamplePoint = new Vector3(eInWorld.x * x, 0, eInWorld.z * z) + area_of_effect.transform.position + eInWorld;
                     Vector3 vpPoint = mainCamera.WorldToViewportPoint(worldSamplePoint);
                     onScreen = vpPoint.x > -visualBuffer && vpPoint.x < 1 + visualBuffer && 
                                vpPoint.y > -visualBuffer && vpPoint.y < 1 + visualBuffer;
