@@ -1,2 +1,2 @@
-# LD46 Game
+# Flame Keeper
 by SnowToast and ToddTheWraith
